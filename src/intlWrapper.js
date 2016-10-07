@@ -4,15 +4,12 @@ import { IntlProvider } from "react-intl";
 import intlStore from "./intl.store";
 
 export default function intlWrapper( Component ) {
-	class IntlWrapper extends React.Component {
-		render() {
-			const props = Object.assign( this.props, this.state );
-			return React.createElement(
-				IntlProvider,
-				props,
-				React.createElement( Component, props )
-			);
-		}
+	function IntlWrapper( props ) {
+		return React.createElement(
+			IntlProvider,
+			props,
+			React.createElement( Component, props )
+		);
 	}
 
 	IntlWrapper.displayName = `IntlWrapper(${ Component.displayName || "Component" })`;
