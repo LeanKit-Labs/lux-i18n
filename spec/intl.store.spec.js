@@ -47,6 +47,7 @@ describe( "lux-i18n - intl.store", () => {
 					"hello.world": "HAY Y'ALL!"
 				}
 			} );
+			const { "es-MX": origES, "en-US": origEN } = store.getState().translations;
 			lux.dispatch( "receiveTranslation", {
 				"es-MX": {
 					"my.house": "mi casa"
@@ -65,6 +66,9 @@ describe( "lux-i18n - intl.store", () => {
 					"my.house": "muh crib"
 				}
 			} );
+			const { "es-MX": newES, "en-US": newEN } = store.getState().translations;
+			newES.should.not.equal( origES );
+			newEN.should.not.equal( origEN );
 		} );
 	} );
 	describe( "read accessor methods", () => {

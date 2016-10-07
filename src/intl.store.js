@@ -1,6 +1,6 @@
 import { Store } from "lux.js";
 import IntlMessageFormat from "intl-messageformat";
-import { merge } from "lodash";
+import { merge, cloneDeep } from "lodash";
 const DEFAULT_LOCALE = "en-US";
 
 export default new Store( {
@@ -26,7 +26,7 @@ export default new Store( {
 		*/
 		receiveTranslation( translations ) {
 			const existing = this.getState().translations;
-			this.setState( { translations: merge( existing, translations ) } );
+			this.setState( { translations: merge( cloneDeep( existing ), translations ) } );
 		}
 	},
 	getCurrentTranslations() {
