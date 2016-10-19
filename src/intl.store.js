@@ -44,6 +44,6 @@ export default new Store( {
 			const msg = new IntlMessageFormat( current.messages[ key ], current.locale );
 			return msg.format( data );
 		}
-		return defaultValue || key;
+		return typeof defaultValue !== "undefined" ? defaultValue : key;
 	}
 } );

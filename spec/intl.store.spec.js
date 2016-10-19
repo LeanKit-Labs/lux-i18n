@@ -118,6 +118,10 @@ describe( "lux-i18n - intl.store", () => {
 			it( "should return the default value if no message is found & default is provided", () => {
 				store.getFormattedMessage( "nope.nope", {}, "absonopely" ).should.equal( "absonopely" );
 			} );
+
+			it( "should return the default value if no message is found & default is empty string", () => {
+				store.getFormattedMessage( "nope.nope", {}, "" ).should.equal( "" );
+			} );
 		} );
 	} );
 } );
