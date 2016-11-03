@@ -40,10 +40,10 @@ export default new Store( {
 	},
 	getFormattedMessage( key, data, defaultValue ) {
 		const current = this.getCurrentTranslations();
-		if ( current.messages[ key ] ) {
-			const msg = new IntlMessageFormat( current.messages[ key ], current.locale );
+		if ( current.messages[ key ] || typeof defaultValue !== "undefined" ) {
+			const msg = new IntlMessageFormat( current.messages[ key ] || defaultValue, current.locale );
 			return msg.format( data );
 		}
-		return typeof defaultValue !== "undefined" ? defaultValue : key;
+		return key;
 	}
 } );

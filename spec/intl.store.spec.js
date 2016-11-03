@@ -122,6 +122,16 @@ describe( "lux-i18n - intl.store", () => {
 			it( "should return the default value if no message is found & default is empty string", () => {
 				store.getFormattedMessage( "nope.nope", {}, "" ).should.equal( "" );
 			} );
+
+			it( "should return the default value taking data into account", () => {
+				const msgArray = [
+					"You have said hello to {numWorlds, plural, ",
+					"=0 {no worlds.}",
+					"=1 {one world.}",
+					"other {# worlds.}}"
+				];
+				store.getFormattedMessage( "hello.sample", { numWorlds: 42 }, msgArray.join( "" ) ).should.equal( "You have said hello to 42 worlds." );
+			} );
 		} );
 	} );
 } );
