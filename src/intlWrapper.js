@@ -16,7 +16,7 @@ export default function intlWrapper( Component ) {
 
 	return luxWrapper( IntlWrapper, {
 		stores: [ intlStore.namespace ],
-		getState: props => {
+		getState: () => {
 			return intlStore.getCurrentTranslations();
 		}
 	} );
