@@ -1,3 +1,5 @@
+import { mount } from "enzyme";
+
 describe( "lux-i18n - intlWrapper", () => {
 	let intlWrapper, FakeIntlProvider, WrappedProvider, component, getCurrentTranslations, getFormattedMessage;
 	beforeEach( () => {
@@ -17,17 +19,15 @@ describe( "lux-i18n - intlWrapper", () => {
 			}
 		};
 		intlWrapper = proxyquire( "../src/intlWrapper", deps );
-		FakeIntlProvider = React.createClass( {
-			render() {
-				return <div>{ this.props.children }</div>;
-			}
-		} );
+		FakeIntlProvider = ( { children } ) => <div>{ children }</div>;
+		FakeIntlProvider.displayName = "FakeIntlProvider";
 		WrappedProvider = intlWrapper( FakeIntlProvider );
-		component = ReactUtils.renderIntoDocument( <WrappedProvider /> );
+		component = mount( <WrappedProvider /> );
 	} );
 	afterEach( () => {
 		if ( component ) {
-			ReactDOM.unmountComponentAtNode( ReactDOM.findDOMNode( component ).parentNode );
+			component.unmount();
+			component = null;
 		}
 	} );
 
@@ -36,19 +36,15 @@ describe( "lux-i18n - intlWrapper", () => {
 	} );
 
 	it( "should set the displayName even if no component name is passed", () => {
-		FakeIntlProvider = React.createClass( {
-			render() {
-				return <div>{ this.props.children }</div>;
-			}
-		} );
+		FakeIntlProvider = ( { children } ) => <div>{ children }</div>;
 		delete FakeIntlProvider.displayName;
 		WrappedProvider = intlWrapper( FakeIntlProvider );
 		WrappedProvider.displayName.should.eql( "LuxWrapped(IntlWrapper(Component))" );
 	} );
 
 	it( "should pass expected props to IntlProvider on initialization", () => {
-		const target = ReactUtils.findRenderedComponentWithType( component, FakeIntlProvider );
-		target.props.should.eql( {
+		const target = component.find( FakeIntlProvider );
+		target.props().should.eql( {
 			locale: "en-US",
 			messages: {
 				"test.one": "Hai",
@@ -58,8 +54,8 @@ describe( "lux-i18n - intlWrapper", () => {
 	} );
 
 	it( "should pass expected props to IntlProvider when store updates", () => {
-		const target = ReactUtils.findRenderedComponentWithType( component, FakeIntlProvider );
-		target.props.should.eql( {
+		let target = component.find( FakeIntlProvider );
+		target.props().should.eql( {
 			locale: "en-US",
 			messages: {
 				"test.one": "Hai",
@@ -79,7 +75,10 @@ describe( "lux-i18n - intlWrapper", () => {
 		postal.channel( "lux.dispatcher" ).publish( "prenotify", { stores: [ "i18n" ] } );
 		postal.channel( "lux.store" ).publish( "i18n.changed" );
 
-		target.props.should.eql( {
+		component.update();
+		target = component.find( FakeIntlProvider );
+
+		target.props().should.eql( {
 			locale: "en-US",
 			messages: {
 				"test.one": "Hai",
