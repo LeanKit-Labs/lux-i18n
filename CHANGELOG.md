@@ -1,3 +1,9 @@
+## 2.x
+
+### 2.0.0
+
+* Upgraded to React 16, enzyme, latest eslint config
+
 ## 1.x
 
 ### 1.3.0
