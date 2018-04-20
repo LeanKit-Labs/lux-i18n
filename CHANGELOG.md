@@ -1,5 +1,9 @@
 ## 2.x
 
+### 2.0.1
+
+* Removed .babelrc on publish, removed package-lock.json
+
 ### 2.0.0
 
 * Upgraded to React 16, enzyme, latest eslint config
