@@ -1,6 +1,7 @@
 import { Store } from "lux.js";
 import IntlMessageFormat from "intl-messageformat";
 import { merge, cloneDeep } from "lodash";
+import window from "window";
 const DEFAULT_LOCALE = "en-US";
 
 export default new Store( {
@@ -45,5 +46,9 @@ export default new Store( {
 			return msg.format( data );
 		}
 		return key;
+	},
+	getFormattedNumber( data, options ) {
+		const { currentLocale } = this.getState();
+		return new window.Intl.NumberFormat( currentLocale, options ).format( data );
 	}
 } );
