@@ -1,7 +1,6 @@
 import { Store } from "lux.js";
 import IntlMessageFormat from "intl-messageformat";
 import { merge, cloneDeep } from "lodash";
-import window from "window";
 const DEFAULT_LOCALE = "en-US";
 
 export default new Store( {

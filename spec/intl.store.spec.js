@@ -1,20 +1,14 @@
 describe( "lux-i18n - intl.store", () => {
-	let store, numberFormatStub, formatStub, windowStub;
+	let store, numberStub, formatStub;
 	beforeEach( () => {
 		formatStub = { format: arg => arg.toString() };
-		numberFormatStub = sinon.stub().returns( formatStub );
-		windowStub = {
-			Intl: {
-				NumberFormat: numberFormatStub
-			}
-		};
-		store = proxyquire( "../src/intl.store", {
-			window: windowStub
-		} );
+		numberStub = sinon.stub( window.Intl, "NumberFormat" ).returns( formatStub );
+		store = proxyquire( "../src/intl.store", {} );
 	} );
 
 	afterEach( () => {
 		store.dispose();
+		numberStub.restore();
 	} );
 
 	it( "should init with default state", () => {
