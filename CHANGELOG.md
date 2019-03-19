@@ -1,5 +1,9 @@
 ## 2.x
 
+### 2.1.0
+
+* Added getFormattedNumber based on the i18n store locale
+
 ### 2.0.1
 
 * Removed .babelrc on publish, removed package-lock.json
