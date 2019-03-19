@@ -1,10 +1,14 @@
 describe( "lux-i18n - intl.store", () => {
-	let store;
+	let store, numberStub, formatStub;
 	beforeEach( () => {
+		formatStub = { format: arg => arg.toString() };
+		numberStub = sinon.stub( window.Intl, "NumberFormat" ).returns( formatStub );
 		store = proxyquire( "../src/intl.store", {} );
 	} );
+
 	afterEach( () => {
 		store.dispose();
+		numberStub.restore();
 	} );
 
 	it( "should init with default state", () => {
@@ -71,6 +75,7 @@ describe( "lux-i18n - intl.store", () => {
 			newEN.should.not.equal( origEN );
 		} );
 	} );
+
 	describe( "read accessor methods", () => {
 		beforeEach( () => {
 			store.getState().translations = {
@@ -131,6 +136,12 @@ describe( "lux-i18n - intl.store", () => {
 					"other {# worlds.}}"
 				];
 				store.getFormattedMessage( "hello.sample", { numWorlds: 42 }, msgArray.join( "" ) ).should.equal( "You have said hello to 42 worlds." );
+			} );
+		} );
+
+		describe( "when calling getFormattedNumber", () => {
+			it( "should return expected message", () => {
+				store.getFormattedNumber( 20 ).should.equal( "20" );
 			} );
 		} );
 	} );

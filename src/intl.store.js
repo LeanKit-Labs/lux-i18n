@@ -45,5 +45,9 @@ export default new Store( {
 			return msg.format( data );
 		}
 		return key;
+	},
+	getFormattedNumber( data, options ) {
+		const { currentLocale } = this.getState();
+		return new window.Intl.NumberFormat( currentLocale, options ).format( data );
 	}
 } );
