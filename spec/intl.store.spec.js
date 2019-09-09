@@ -81,16 +81,29 @@ describe( "lux-i18n - intl.store", () => {
 			store.getState().translations = {
 				"en-US": {
 					"hello.world": "oh, hai world"
+				},
+				fr: {
+					"hello.world": "oh, salut tout le monde"
 				}
 			};
 		} );
 
 		describe( "when calling getCurrentTranslations", () => {
-			it( "should return expected state", () => {
+			it( "should return expected state for an exact region match", () => {
 				store.getCurrentTranslations().should.eql( {
 					locale: "en-US",
 					messages: {
 						"hello.world": "oh, hai world"
+					}
+				} );
+			} );
+
+			it( "should fall back to a generic language for an unmatched region", () => {
+				store.getState().currentLocale = "fr-FR";
+				store.getCurrentTranslations().should.eql( {
+					locale: "fr-FR",
+					messages: {
+						"hello.world": "oh, salut tout le monde"
 					}
 				} );
 			} );
