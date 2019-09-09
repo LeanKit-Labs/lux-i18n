@@ -1,8 +1,11 @@
+import proxyFn from "proxyquire";
+const proxyquire = proxyFn.noPreserveCache().noCallThru();
+
 describe( "lux-i18n - getFormattedMessage", () => {
 	it( "should pass the args straight through to the store accessor method", () => {
 		const msgStub = sinon.stub();
 		const numStub = sinon.stub();
-		const instance = proxyquire( "../src", {
+		const instance = proxyquire( "./", {
 			"./intl.store": {
 				getFormattedMessage: msgStub,
 				getFormattedNumber: numStub

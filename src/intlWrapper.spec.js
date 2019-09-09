@@ -1,3 +1,5 @@
+import proxyFn from "proxyquire";
+const proxyquire = proxyFn.noPreserveCache().noCallThru();
 import { mount } from "enzyme";
 
 describe( "lux-i18n - intlWrapper", () => {
@@ -29,7 +31,7 @@ describe( "lux-i18n - intlWrapper", () => {
 		};
 		FakeIntlProvider = ( { children } ) => <div>{ children }</div>;
 		FakeIntlProvider.displayName = "FakeIntlProvider";
-		intlWrapper = proxyquire( "../src/intlWrapper", deps );
+		intlWrapper = proxyquire( "./intlWrapper", deps );
 		WrappedProvider = intlWrapper( FakeIntlProvider );
 		component = mount( <WrappedProvider { ...translations } /> );
 	} );

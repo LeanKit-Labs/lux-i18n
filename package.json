@@ -9,7 +9,7 @@
     "cover:show": "open \"file://$PWD/coverage/index.html\"",
     "pretest": "npm run lint",
     "test": "npm run cover",
-    "test:only": "NODE_ENV=test mocha --require babel-register -R spec 'spec/**/*.spec.js' -r spec/node-setup.js",
+    "test:only": "NODE_ENV=test mocha 'src/**/*.spec.js'",
     "test:watch": "npm run test:only -- -w"
   },
   "repository": {
@@ -54,16 +54,27 @@
     "jsdom": "^9.5.0",
     "mocha": "^6.2.0",
     "nyc": "^14.1.1",
-    "postal": "^2.0.4",
     "proxyquire": "^1.7.10",
     "react-dom": "^16.3.0",
     "sinon": "^1.17.5",
     "sinon-as-promised": "^4.0.2",
     "sinon-chai": "^2.8.0"
   },
+  "mocha": {
+    "require": [
+      "babel-register",
+      "spec/node-setup"
+    ],
+    "reporter": [
+      "spec"
+    ]
+  },
   "nyc": {
     "include": [
       "src/**/*.js"
+    ],
+    "exclude": [
+      "src/**/*.spec.js"
     ],
     "all": true,
     "require": [

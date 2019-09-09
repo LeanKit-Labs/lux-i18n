@@ -1,9 +1,13 @@
+import proxyFn from "proxyquire";
+const proxyquire = proxyFn.noPreserveCache().noCallThru();
+import lux from "lux.js";
+
 describe( "lux-i18n - intl.store", () => {
 	let store, numberStub, formatStub;
 	beforeEach( () => {
 		formatStub = { format: arg => arg.toString() };
 		numberStub = sinon.stub( window.Intl, "NumberFormat" ).returns( formatStub );
-		store = proxyquire( "../src/intl.store", {} );
+		store = proxyquire( "./intl.store", {} );
 	} );
 
 	afterEach( () => {
