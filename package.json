@@ -9,7 +9,7 @@
     "cover:show": "open \"file://$PWD/coverage/index.html\"",
     "pretest": "npm run lint",
     "test": "npm run cover",
-    "test:only": "NODE_ENV=test mocha --compilers js:babel-register -R spec 'spec/**/*.spec.js' -r spec/node-setup.js",
+    "test:only": "NODE_ENV=test mocha --require babel-register -R spec 'spec/**/*.spec.js' -r spec/node-setup.js",
     "test:watch": "npm run test:only -- -w"
   },
   "repository": {
@@ -53,8 +53,8 @@
     "eslint-config-leankit": "^4.0.0",
     "event-emitter": "^0.3.4",
     "jsdom": "^9.5.0",
-    "mocha": "^3.0.2",
-    "nyc": "^7.0.0",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
     "postal": "^2.0.4",
     "proxyquire": "^1.7.10",
     "react-addons-test-utils": "^15.3.2",
@@ -76,7 +76,7 @@
   },
   "dependencies": {
     "intl-messageformat": "^1.3.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.15",
     "lux.js": "^2.0.0-5",
     "react": "^16.3.0",
     "react-intl": "^2.1.5"

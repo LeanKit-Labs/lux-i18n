@@ -1,6 +1,7 @@
 import { Store } from "lux.js";
 import IntlMessageFormat from "intl-messageformat";
-import { merge, cloneDeep } from "lodash";
+import merge from "lodash/merge";
+import cloneDeep from "lodash/cloneDeep";
 const DEFAULT_LOCALE = "en-US";
 
 export default new Store( {
