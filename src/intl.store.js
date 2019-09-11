@@ -1,6 +1,7 @@
 import { Store } from "lux.js";
 import IntlMessageFormat from "intl-messageformat";
-import { merge, cloneDeep } from "lodash";
+import merge from "lodash/merge";
+import cloneDeep from "lodash/cloneDeep";
 const DEFAULT_LOCALE = "en-US";
 
 export default new Store( {
@@ -32,9 +33,10 @@ export default new Store( {
 	getCurrentTranslations() {
 		const { defaultLocale, currentLocale, translations } = this.getState();
 		const actualLocale = currentLocale || defaultLocale;
+		const language = actualLocale.split( "-" )[ 0 ];
 		const lang = {
 			locale: actualLocale,
-			messages: translations[ actualLocale ] || {}
+			messages: translations[ actualLocale ] || translations[ language ] || {}
 		};
 		return lang;
 	},
