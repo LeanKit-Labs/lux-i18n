@@ -1,6 +1,6 @@
 {
   "name": "lux-i18n",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Make react-intl lux-aware, and capable of consuming translations from a lux store.",
   "main": "src/index.js",
   "scripts": {

@@ -1,3 +1,14 @@
+## 3.x
+
+### 3.0.0
+
+* Upgraded to 2.0.0 of lux.js
+* Updated to latest pre-release of lux.js
+* Added postal back to dev dependencies
+* Moved spec files, removed some test globals
+* Added support for falling back to a less specific language from region
+* Updated dependencies, moved to individual lodash imports
+
 ## 2.x
 
 ### 2.1.0
