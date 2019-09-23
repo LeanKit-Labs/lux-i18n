@@ -1,9 +1,13 @@
+import proxyFn from "proxyquire";
+const proxyquire = proxyFn.noPreserveCache().noCallThru();
+import lux from "lux.js";
+
 describe( "lux-i18n - intl.store", () => {
 	let store, numberStub, formatStub;
 	beforeEach( () => {
 		formatStub = { format: arg => arg.toString() };
 		numberStub = sinon.stub( window.Intl, "NumberFormat" ).returns( formatStub );
-		store = proxyquire( "../src/intl.store", {} );
+		store = proxyquire( "./intl.store", {} );
 	} );
 
 	afterEach( () => {
@@ -81,16 +85,29 @@ describe( "lux-i18n - intl.store", () => {
 			store.getState().translations = {
 				"en-US": {
 					"hello.world": "oh, hai world"
+				},
+				fr: {
+					"hello.world": "oh, salut tout le monde"
 				}
 			};
 		} );
 
 		describe( "when calling getCurrentTranslations", () => {
-			it( "should return expected state", () => {
+			it( "should return expected state for an exact region match", () => {
 				store.getCurrentTranslations().should.eql( {
 					locale: "en-US",
 					messages: {
 						"hello.world": "oh, hai world"
+					}
+				} );
+			} );
+
+			it( "should fall back to a generic language for an unmatched region", () => {
+				store.getState().currentLocale = "fr-FR";
+				store.getCurrentTranslations().should.eql( {
+					locale: "fr-FR",
+					messages: {
+						"hello.world": "oh, salut tout le monde"
 					}
 				} );
 			} );
