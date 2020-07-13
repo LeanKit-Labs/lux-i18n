@@ -51,5 +51,9 @@ export default new Store( {
 	getFormattedNumber( data, options ) {
 		const { currentLocale } = this.getState();
 		return new window.Intl.NumberFormat( currentLocale, options ).format( data );
+	},
+	getFormattedDate( data, options ) {
+		const { currentLocale } = this.getState();
+		return new window.Intl.DateTimeFormat( currentLocale, options ).format( data );
 	}
 } );
