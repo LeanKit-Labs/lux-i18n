@@ -1,5 +1,9 @@
 ## 3.x
 
+### 3.1.0
+
+* Added getFormattedDate method
+
 ### 3.0.0
 
 * Upgraded to 2.0.0 of lux.js
