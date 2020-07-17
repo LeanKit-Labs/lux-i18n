@@ -161,5 +161,11 @@ describe( "lux-i18n - intl.store", () => {
 				store.getFormattedNumber( 20 ).should.equal( "20" );
 			} );
 		} );
+
+		describe( "when calling getFormattedDate", () => {
+			it( "should return expected message", () => {
+				store.getFormattedDate( new Date( 2020, 3, 1 ), { year: "numeric", month: "short", day: "numeric" } ).should.equal( "Apr 1, 2020" );
+			} );
+		} );
 	} );
 } );
